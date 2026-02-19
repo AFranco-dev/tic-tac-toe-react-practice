@@ -16,12 +16,12 @@ function App() {
     <div id="game-container">
       <ol id="players" className="highlight-player">
         <Player
-          isActive={activePlayer === "X" ? true : false}
+          isActive={activePlayer === "X"}
           initialPlayerName="Player 1"
           symbol="X"
         />
         <Player
-          isActive={activePlayer === "X" ? false : true}
+          isActive={activePlayer === "O"}
           initialPlayerName="Player 2"
           symbol="O"
         />
