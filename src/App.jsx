@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { Player } from "../components/Player";
 import { GameBoard } from "../components/Gameboard";
+import { Log } from "../components/Log";
 
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
@@ -26,25 +27,28 @@ function App() {
   }
 
   return (
-    <div id="game-container">
-      <ol id="players" className="highlight-player">
-        <Player
-          isActive={activePlayer === "X"}
-          initialPlayerName="Player 1"
-          symbol="X"
+    <main>
+      <div id="game-container">
+        <ol id="players" className="highlight-player">
+          <Player
+            isActive={activePlayer === "X"}
+            initialPlayerName="Player 1"
+            symbol="X"
+          />
+          <Player
+            isActive={activePlayer === "O"}
+            initialPlayerName="Player 2"
+            symbol="O"
+          />
+        </ol>
+        <GameBoard
+          activePlayer={activePlayer}
+          onSquareSelect={handleSquareSelect}
+          gameTurns={gameTurns}
         />
-        <Player
-          isActive={activePlayer === "O"}
-          initialPlayerName="Player 2"
-          symbol="O"
-        />
-      </ol>
-      <GameBoard
-        activePlayer={activePlayer}
-        onSquareSelect={handleSquareSelect}
-        gameTurns={gameTurns}
-      />
-    </div>
+      </div>
+      <Log gameTurns={gameTurns} />
+    </main>
   );
 }
 
