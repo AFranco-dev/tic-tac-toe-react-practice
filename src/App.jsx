@@ -4,7 +4,13 @@ import { Player } from "../components/Player";
 import { GameBoard } from "../components/Gameboard";
 import { Log } from "../components/Log";
 
-import WINNING_COMBINATIONS from "./winning-combinations";
+import { WINNING_COMBINATIONS } from "./winning-combinations.js";
+
+const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
 
 function computedActivePlayer(turns) {
   let lastActivePlayer = "X";
@@ -16,6 +22,14 @@ function App() {
   const [gameTurns, setGameTurns] = useState([]);
 
   const activePlayer = computedActivePlayer(gameTurns);
+
+  let gameBoard = initialGameBoard;
+
+  for (const gameTurn of gameTurns) {
+    const { square, player } = gameTurn;
+    const { rowIndex, colIndex } = square;
+    gameBoard[rowIndex][colIndex] = player;
+  }
 
   function handleSquareSelect(rowIndex, colIndex) {
     setGameTurns((prevGameTurns) => {
@@ -48,7 +62,7 @@ function App() {
         <GameBoard
           activePlayer={activePlayer}
           onSquareSelect={handleSquareSelect}
-          gameTurns={gameTurns}
+          gameBoard={gameBoard}
         />
       </div>
       <Log gameTurns={gameTurns} />
