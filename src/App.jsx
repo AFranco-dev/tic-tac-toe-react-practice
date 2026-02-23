@@ -4,6 +4,8 @@ import { Player } from "../components/Player";
 import { GameBoard } from "../components/Gameboard";
 import { Log } from "../components/Log";
 
+import WINNING_COMBINATIONS from "./winning-combinations";
+
 function computedActivePlayer(turns) {
   let lastActivePlayer = "X";
   if (turns.length > 0 && turns[0].player === "X") lastActivePlayer = "O";
