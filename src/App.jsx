@@ -24,11 +24,27 @@ function App() {
   const activePlayer = computedActivePlayer(gameTurns);
 
   let gameBoard = initialGameBoard;
+  let winner = null;
 
   for (const gameTurn of gameTurns) {
     const { square, player } = gameTurn;
     const { rowIndex, colIndex } = square;
     gameBoard[rowIndex][colIndex] = player;
+  }
+
+  for (const winningCombination of WINNING_COMBINATIONS) {
+    const firstSquare =
+      gameBoard[winningCombination[0].row][winningCombination[0].column];
+    const secondSquare =
+      gameBoard[winningCombination[1].row][winningCombination[1].column];
+    const thirdSquare =
+      gameBoard[winningCombination[2].row][winningCombination[2].column];
+    if (
+      firstSquare &&
+      firstSquare === secondSquare &&
+      firstSquare === thirdSquare
+    )
+      winner = firstSquare;
   }
 
   function handleSquareSelect(rowIndex, colIndex) {
@@ -59,6 +75,7 @@ function App() {
             symbol="O"
           />
         </ol>
+        {winner && <p>{winner} won!</p>}
         <GameBoard
           activePlayer={activePlayer}
           onSquareSelect={handleSquareSelect}
