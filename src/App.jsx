@@ -24,7 +24,7 @@ function App() {
 
   const activePlayer = computedActivePlayer(gameTurns);
 
-  let gameBoard = initialGameBoard;
+  let gameBoard = [...initialGameBoard.map((array) => [...array])];
   let winner = null;
 
   for (const gameTurn of gameTurns) {
@@ -63,6 +63,10 @@ function App() {
     });
   }
 
+  function handleRestart() {
+    setGameTurns([]);
+  }
+
   return (
     <main>
       <div id="game-container">
@@ -78,7 +82,9 @@ function App() {
             symbol="O"
           />
         </ol>
-        {winner && <GameOver winner={winner} />}
+        {(winner || gameDraw) && (
+          <GameOver winner={winner} onClick={handleRestart} />
+        )}
         <GameBoard
           activePlayer={activePlayer}
           onSquareSelect={handleSquareSelect}
